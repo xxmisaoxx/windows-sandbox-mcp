@@ -1,0 +1,5 @@
+[mcp_servers.windows_sandbox]
+command = 'C:\projects\windows-sandbox-mcp\.venv\Scripts\python.exe'
+args = ['-m', 'winsandbox_mcp', '--state-root', 'C:\projects\windows-sandbox-mcp\.runtime\codex']
+startup_timeout_sec = 20
+tool_timeout_sec = 360

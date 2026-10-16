@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "windows_sandbox": {
+      "type": "local",
+      "command": [
+        "C:\\projects\\windows-sandbox-mcp\\.venv\\Scripts\\python.exe",
+        "-m",
+        "winsandbox_mcp",
+        "--state-root",
+        "C:\\projects\\windows-sandbox-mcp\\.runtime\\opencode"
+      ],
+      "enabled": true,
+      "timeout": 360000
+    }
+  }
+}

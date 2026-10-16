@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "winsandbox-mcp"
+version = "0.1.0"
+description = "Offline-first Windows Sandbox MCP with a narrow JSON bridge"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["mcp==1.30.0", "pywin32==312; sys_platform == 'win32'"]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1", "pytest-asyncio==1.4.0", "ruff==0.17.1", "pip-audit==2.10.1", "build==1.6.1", "hatchling==1.27.0"]
+
+[project.scripts]
+winsandbox-mcp = "winsandbox_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/winsandbox_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = ["integration: requires real Windows Sandbox and interactive desktop"]
+
+[tool.ruff]
+line-length = 110
+

@@ -1,0 +1,15 @@
+.venv/
+.uv-cache/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.runtime/
+evidence/*
+!evidence/.gitkeep
+
+# Workstation-specific notes stay local.
+docs/STATE.md
+docs/OPENCODE-HANDOFF.md
