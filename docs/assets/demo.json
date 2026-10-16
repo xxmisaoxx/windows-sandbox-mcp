@@ -1,0 +1,26 @@
+{
+  "captured_on": "2026-10-17",
+  "source": "scripts/check-mcp-live.py",
+  "fixture": "examples/browser-demo.html",
+  "environment": "Windows 10 Pro 22H2 x64, build 19045.4780",
+  "transport": "official Python MCP SDK stdio client",
+  "passed": true,
+  "checks": {
+    "binary_roundtrip": true,
+    "native_png_image": true,
+    "binary_resource": true,
+    "tool_count": 18,
+    "uia3_inspection": true,
+    "cdp_requires_opt_in": true,
+    "cdp_fill_click_verified": true,
+    "guest_debug_listeners": [
+      "127.0.0.1"
+    ]
+  },
+  "screenshot": {
+    "file": "desktop-demo.png",
+    "sha256": "042438f7a2095570ae17d201e5badd4e22427f6598b47bb2696fa5ae36afc80c",
+    "size": 73105,
+    "modified": false
+  }
+}

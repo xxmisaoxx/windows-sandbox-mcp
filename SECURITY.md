@@ -52,5 +52,6 @@ dialog for the explicitly selected Antidetect fixture, inside the disposable
 guest, as authorized by the user. This behavior is not an MCP-wide auto-approval
 policy and does not modify the host firewall.
 
-Report security issues privately to the repository maintainer before publishing
-exploit details.
+Report security issues using [GitHub private vulnerability reporting](https://github.com/xxmisaoxx/windows-sandbox-mcp/security/advisories/new)
+before publishing exploit details. Include a synthetic reproduction, affected
+commit, Windows build and whether the host/guest boundary is involved.

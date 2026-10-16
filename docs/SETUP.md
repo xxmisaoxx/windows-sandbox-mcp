@@ -10,7 +10,7 @@ Install [uv](https://docs.astral.sh/uv/) and from the repository root run:
 
 ```powershell
 $env:UV_CACHE_DIR = Join-Path $PWD '.uv-cache'
-uv sync --frozen --extra dev
+uv sync --frozen
 .venv\Scripts\python.exe -m winsandbox_mcp --doctor
 ```
 
@@ -73,6 +73,7 @@ in VALIDATION.md. Examples are not evidence that a client called a tool.
 ## Testing
 
 ```powershell
+uv sync --frozen --extra dev
 .venv\Scripts\python.exe -m pytest -m 'not integration' -q
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\check-guest.ps1
 .venv\Scripts\python.exe scripts\integration.py
@@ -117,4 +118,17 @@ pending mailbox waits. Restart is required afterward.
 Shutdown does not recursively delete outbox data. Requests whose mapped-folder
 broker handles remain open are retained and never replayed in a new session.
 Configure a quota-limited disposable state volume for hostile workloads.
+
+## Troubleshooting
+
+| Symptom | Next step |
+|---|---|
+| Sandbox is missing or will not start | Enable Windows Sandbox and virtualization, reboot if required, then run `--doctor` again. Confirm the tested Windows edition/build. |
+| `SESSION_BUSY` | Close another MCP-owned or manually opened Sandbox. This server never attaches to an unrelated session. |
+| Tools do not appear after configuration | Reload the client, check its MCP status, and confirm the configured Python executable exists. Generated configs use absolute paths. |
+| The terminal appears to wait when running `-m winsandbox_mcp` | The process speaks MCP stdio and is waiting for a client. Use the client configuration instead of typing shell commands into it. |
+| Native controls are sparse | Try UIA3, another UIA view or MSAA/IA2; for compatible Chromium pages, opt into DOM/CDP. See GUI-AUTOMATION.md. |
+| An online app is blank or reports a network error | Sandbox networking is off by default. Start a fresh guest with networking enabled when the workflow needs it. |
+| `INSPECTION_TIMEOUT` | The worker was terminated; the guest remains usable. Try another backend or a smaller inspection. |
+| `BRIDGE_TIMEOUT` | Stop or restart the guest before another command. Preserve the structured error when reporting the issue. |
 

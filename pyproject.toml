@@ -11,6 +11,11 @@ requires-python = ">=3.11"
 license = "MIT"
 dependencies = ["mcp==1.30.0", "pywin32==312; sys_platform == 'win32'"]
 
+[project.urls]
+Homepage = "https://github.com/xxmisaoxx/windows-sandbox-mcp"
+Documentation = "https://github.com/xxmisaoxx/windows-sandbox-mcp/blob/main/docs/SETUP.md"
+Issues = "https://github.com/xxmisaoxx/windows-sandbox-mcp/issues"
+
 [project.optional-dependencies]
 dev = ["pytest==9.1.1", "pytest-asyncio==1.4.0", "ruff==0.17.1", "pip-audit==2.10.1", "build==1.6.1", "hatchling==1.27.0"]
 

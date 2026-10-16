@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MCP DOM test</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", sans-serif; color: #172b35; background: #f2f4f2; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 28px 6vw; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #d9e1db; }
+    .brand { font-weight: 650; font-size: 18px; letter-spacing: -.4px; }
+    .tag { font: 11px Consolas, monospace; letter-spacing: 1.3px; color: #47645a; }
+    main { max-width: 1180px; margin: 0 auto; padding: 62px 40px 28px; }
+    .eyebrow { color: #366753; font: 12px Consolas, monospace; letter-spacing: 2px; }
+    h1 { max-width: 740px; font-size: clamp(35px, 4.4vw, 60px); letter-spacing: -2.3px; line-height: 1.08; margin: 18px 0; font-weight: 600; }
+    .intro { font-size: 18px; color: #556861; line-height: 1.7; max-width: 680px; }
+    .workspace { display: grid; grid-template-columns: 1.25fr 1fr; margin-top: 36px; border: 1px solid #cdd8d0; background: #fff; border-radius: 12px; overflow: hidden; }
+    .form { padding: 32px; }
+    .section-title { font: 11px Consolas, monospace; letter-spacing: 1.4px; color: #5b7064; margin-bottom: 24px; }
+    label { display: block; font-weight: 600; margin-bottom: 10px; font-size: 15px; }
+    input { width: 100%; border: 1px solid #b5c7bc; border-radius: 6px; padding: 14px 16px; font: 18px Consolas, monospace; color: #172b35; background: #f9fbf9; }
+    input:focus { outline: 3px solid #cce8d9; border-color: #278359; }
+    button { margin-top: 18px; background: #1d6647; border: 0; border-radius: 6px; color: white; padding: 13px 24px; font: 600 15px "Segoe UI", sans-serif; cursor: pointer; }
+    button:focus-visible { outline: 3px solid #93cbb0; outline-offset: 3px; }
+    .hint { color: #60746a; font-size: 13px; line-height: 1.6; margin-top: 18px; }
+    aside { background: #173d31; color: #e3f2e8; padding: 32px; }
+    aside .section-title { color: #9fc9af; }
+    .step { display: flex; gap: 14px; padding: 12px 0; font-size: 15px; }
+    .number { color: #86b99b; font: 13px Consolas, monospace; padding-top: 2px; }
+    .status { margin-top: 20px; padding-top: 20px; border-top: 1px solid #456859; }
+    .status strong { display: block; margin-bottom: 7px; font-size: 18px; font-weight: 600; }
+    .status span { font-size: 13px; color: #bbd3c4; }
+    footer { display: flex; justify-content: space-between; gap: 20px; margin-top: 22px; font: 11px Consolas, monospace; color: #63766c; }
+    @media(max-width: 700px) { main { padding: 32px 22px; } .workspace { grid-template-columns: 1fr; } header { padding: 20px 22px; } .tag { display: none; } footer { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <header><div class="brand">Windows Sandbox MCP</div><div class="tag">SYNTHETIC OFFLINE DEMO</div></header>
+  <main>
+    <div class="eyebrow">A DESKTOP FOR YOUR CODING AGENT</div>
+    <h1>Run it. See it.<br>Verify it.</h1>
+    <p class="intro">A small local page inside a disposable Windows desktop.
+      The MCP client fills the field, clicks the button and reads the result back.</p>
+    <div class="workspace">
+      <section class="form">
+        <div class="section-title">01 / INTERACT WITH THE GUEST</div>
+        <label for="message">Message from the MCP client</label>
+        <input id="message" autocomplete="off" placeholder="Waiting for agent input">
+        <button id="apply" type="button">Apply</button>
+        <p class="hint">This is a synthetic test fixture. No account, external service or network connection is needed.</p>
+      </section>
+      <aside aria-label="Observation and verification">
+        <div class="section-title">02 / OBSERVE THE RESULT</div>
+        <div class="step"><span class="number">01</span><span>Discover controls from a DOM snapshot</span></div>
+        <div class="step"><span class="number">02</span><span>Fill a fresh reference and read it back</span></div>
+        <div class="step"><span class="number">03</span><span>Click, then verify the changed state</span></div>
+        <div class="status" role="status"><strong id="state">Ready for input</strong><span id="result">The page has not been acted on yet.</span></div>
+      </aside>
+    </div>
+    <footer><span>LOCAL HTML FIXTURE · WINDOWS SANDBOX GUEST</span><span>OBSERVE → ACT → VERIFY</span></footer>
+  </main>
+  <script>
+    document.getElementById('apply').addEventListener('click', function () {
+      const value = document.getElementById('message').value;
+      this.textContent = 'Applied';
+      document.getElementById('state').textContent = value ? 'Input applied' : 'No input supplied';
+      document.getElementById('result').textContent = value ? 'Current field value: ' + value : 'Fill the field before applying.';
+    });
+  </script>
+</body>
+</html>

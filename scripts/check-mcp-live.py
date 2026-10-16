@@ -45,12 +45,12 @@ async def run():
                 assert tree["backend"] == "uia3" and any(n["type"] == "ControlType.Edit" for n in tree["nodes"])
                 disabled = await client.call_tool("sandbox_browser", {"port": 9222})
                 assert disabled.isError and disabled.structuredContent["error"]["details"]["guest_code"] == "CDP_NOT_ENABLED"
-                html = b'<title>MCP DOM test</title><input aria-label="Synthetic"><button onclick="this.textContent=\'Applied\'">Apply</button>'
+                html = (project / "examples/browser-demo.html").read_bytes()
                 await call("sandbox_upload", {"path": r"C:\work\form.html", "data_base64": base64.b64encode(html).decode()})
                 edge = (await call("sandbox_exec", {"command": "@('C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe','C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe') | Where-Object {Test-Path -LiteralPath $_} | Select-Object -First 1"})).structuredContent["result"]["stdout"].strip()
                 assert edge
                 await call("sandbox_launch", {"executable": edge, "arguments": ["--user-data-dir=C:\\work\\mcp-profile",
-                           "--no-first-run", "file:///C:/work/form.html"], "accessibility": True, "cdp_port": 9223})
+                           "--no-first-run", "--start-maximized", "file:///C:/work/form.html"], "accessibility": True, "cdp_port": 9223})
                 for _ in range(30):
                     candidate = await client.call_tool("sandbox_browser", {"port": 9223})
                     if not candidate.isError and candidate.structuredContent["result"]["nodes"]:
